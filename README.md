@@ -31,10 +31,8 @@ AskIt is a modern Question & Answer platform powered by Django (REST API) and Re
 git clone https://github.com/Priyankagaikwad2004/askit.git
 cd askit
 ```
+
 2. Backend Setup (Django)
-bash
-Copy
-Edit
 cd backend
 python -m venv env
 source env/bin/activate  # or env\Scripts\activate on Windows
@@ -42,10 +40,7 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 
-3. Frontend Setup (React + Vite)
-bash
-Copy
-Edit
+4. Frontend Setup (React + Vite)
 cd frontend
 npm install
 npm run dev
