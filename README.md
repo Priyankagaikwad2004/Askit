@@ -30,7 +30,7 @@ AskIt is a modern Question & Answer platform powered by Django (REST API) and Re
 ```bash
 git clone https://github.com/Priyankagaikwad2004/askit.git
 cd askit
-
+```
 2. Backend Setup (Django)
 bash
 Copy
