@@ -28,5 +28,50 @@ AskIt is a modern Question & Answer platform powered by Django (REST API) and Re
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/askit.git
+git clone https://github.com/Priyankagaikwad2004/askit.git
 cd askit
+
+2. Backend Setup (Django)
+bash
+Copy
+Edit
+cd backend
+python -m venv env
+source env/bin/activate  # or env\Scripts\activate on Windows
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+
+3. Frontend Setup (React + Vite)
+bash
+Copy
+Edit
+cd frontend
+npm install
+npm run dev
+
+🌐 API Overview
+GET /api/questions/ – List all questions
+
+GET /api/questions?q=search_term – Search questions
+
+POST /api/questions/ – Add new question
+
+GET /api/questions/<id>/ – Get question detail
+
+(More endpoints in progress…)
+
+🤝 Contributing
+Contributions are welcome!
+To contribute:
+
+Fork the repo
+
+Create a new branch
+
+Make your changes
+
+Submit a Pull Request 🚀
+
+🙋‍♀️ Author
+Built with ❤️ by Priyanka
