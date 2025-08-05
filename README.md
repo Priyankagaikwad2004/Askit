@@ -32,19 +32,6 @@ git clone https://github.com/Priyankagaikwad2004/askit.git
 cd askit
 ```
 
-2. Backend Setup (Django)
-cd backend
-python -m venv env
-source env/bin/activate  # or env\Scripts\activate on Windows
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-
-4. Frontend Setup (React + Vite)
-cd frontend
-npm install
-npm run dev
-
 🌐 API Overview
 GET /api/questions/ – List all questions
 
