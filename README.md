@@ -57,3 +57,10 @@ Submit a Pull Request 🚀
 
 🙋‍♀️ Author
 Built with ❤️ by Priyanka
+
+
+
+## 🖼️ Preview
+
+![AskIt Screenshot](Screenshot 2025-08-05 184249.png)
+
