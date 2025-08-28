@@ -8,9 +8,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
-
 """
-
 
 from pathlib import Path
 
@@ -28,23 +26,6 @@ SECRET_KEY = 'django-insecure-$*t2@612v2ojfc6%w(2g@)^l7cin^b9q-5(tu(9ii62nb4@66b
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-#hosting
-
-import os
-import dj_database_url
-
-DEBUG = False
-ALLOWED_HOSTS = ["*"]
-
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
-}
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 
 
 # Application definition
@@ -77,9 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True  # Or restrict by React dev URL
@@ -108,11 +87,16 @@ WSGI_APPLICATION = 'askit_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
 DATABASES = {
-    "default": dj_database_url.config(default=DATABASES["default"])
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'askit_db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
-
 
 
 # Password validation
