@@ -10,12 +10,9 @@ class Place(models.Model):
     architecture = models.TextField()
     fun_facts = ArrayField(models.TextField(), blank=True, default=list)
     visitor_tips = ArrayField(models.TextField(), blank=True, default=list)
-   
 
     def __str__(self):
         return self.name
 
     class Meta:
-        db_table = 'place' 
-
-
+        db_table = 'place'
