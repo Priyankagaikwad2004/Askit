@@ -32,6 +32,13 @@ def smart_place_search(request):
     else:
         return Response({"message": f"No places found for '{query}'"}, status=404)
 
+from rest_framework import generics
+from rest_framework.renderers import JSONRenderer
+from .models import Place
+from .serializers import PlaceSerializer
+
 class PlaceCreateView(generics.CreateAPIView):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
+    renderer_classes = [JSONRenderer]  # Only allow JSON
+
