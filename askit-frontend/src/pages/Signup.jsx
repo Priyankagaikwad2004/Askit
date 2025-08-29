@@ -16,7 +16,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    const response = await fetch("http://localhost:8000/api/register/", {
+    const response = await fetch("https://askit-6h2d.onrender.com/api/register/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

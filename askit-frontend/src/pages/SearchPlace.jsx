@@ -83,7 +83,7 @@ const SearchPlace = () => {
     
     setIsLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8000/api/place/?q=${query}`);
+      const response = await axios.get(`https://askit-6h2d.onrender.com/api/place/?q=${query}`);
       setPlaces(response.data);
       setError("");
     } catch (err) {

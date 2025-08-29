@@ -34,7 +34,7 @@ const AddPlace = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://127.0.0.1:8000/api/add-place/", {
+    const response = await fetch("https://askit-6h2d.onrender.com/api/add-place/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
