@@ -9,14 +9,10 @@ function Login() {
 const handleLogin = async (e) => {
   e.preventDefault();
 
-  const formData = new URLSearchParams();
-  formData.append("email", email);
-  formData.append("password", password);
-
   const response = await fetch("https://askit-6h2d.onrender.com/api/login/", {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: formData.toString(),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
   });
 
   if (response.ok) {
@@ -24,7 +20,8 @@ const handleLogin = async (e) => {
     localStorage.setItem("token", data.access);
     navigate("/search");
   } else {
-    alert("Invalid credentials");
+    const errorData = await response.json();
+    alert(errorData.detail || "Invalid credentials");
   }
 };
 
