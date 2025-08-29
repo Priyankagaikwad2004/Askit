@@ -12,5 +12,4 @@ class UserData(models.Model):
 
     class Meta:
         db_table = 'user_data'  # 👈 This tells Django to use your existing table
-        managed = False            # 👈 Prevent Django from creating or migrating this table
 
