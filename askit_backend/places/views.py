@@ -32,6 +32,11 @@ def smart_place_search(request):
     else:
         return Response({"message": f"No places found for '{query}'"}, status=404)
 
+# views.py
+from rest_framework import generics
+from .models import Place
+from .serializers import PlaceSerializer
+
 class PlaceCreateView(generics.CreateAPIView):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
