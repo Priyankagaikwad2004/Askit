@@ -8,8 +8,9 @@ class Place(models.Model):
     description = models.TextField()
     history = models.TextField()
     architecture = models.TextField()
-    fun_facts = ArrayField(models.TextField())   
-    visitor_tips = ArrayField(models.TextField())    
+    fun_facts = ArrayField(models.TextField(), blank=True, default=list)
+    visitor_tips = ArrayField(models.TextField(), blank=True, default=list)
+   
 
     def __str__(self):
         return self.name
