@@ -1,1 +1,1 @@
-gunicorn askit_backend.wsgi
+gunicorn core.wsgi
