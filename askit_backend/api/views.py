@@ -7,23 +7,21 @@ from .serializers import CustomLoginSerializer
 
 class RegisterView(APIView):
     def post(self, request):
-        email = request.data.get("email")
-        password = request.data.get("password")
-
-        # check if email exists
-        if UserData.objects.filter(email=email).exists():
-            return Response(
-                {"detail": "This email is already registered."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
         serializer = UserDataSerializer(data=request.data)
         if serializer.is_valid():
+            email = serializer.validated_data['email']
+            
+            # Check if email already exists
+            if UserData.objects.filter(email=email).exists():
+                return Response(
+                    {"detail": "This email is already registered."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
             serializer.save()
             return Response({"detail": "User registered successfully!"}, status=status.HTTP_201_CREATED)
-
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class LoginView(APIView):
     def post(self, request):
