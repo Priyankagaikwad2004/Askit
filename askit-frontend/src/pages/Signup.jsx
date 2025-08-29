@@ -7,14 +7,8 @@ const AskItSignup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-const AskItSignup = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
     if (password !== confirmPassword) {
       alert("Passwords do not match");
@@ -44,7 +38,6 @@ const AskItSignup = () => {
       alert("⚠️ Error connecting to server");
     }
   };
-};
 
 
 
