@@ -6,23 +6,27 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+const handleLogin = async (e) => {
+  e.preventDefault();
 
-    const response = await fetch("https://askit-6h2d.onrender.com/api/login/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+  const formData = new URLSearchParams();
+  formData.append("email", email);
+  formData.append("password", password);
 
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("token", data.access);
-      navigate("/search");
-    } else {
-      alert("Invalid credentials");
-    }
-  };
+  const response = await fetch("https://askit-6h2d.onrender.com/api/login/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: formData.toString(),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    localStorage.setItem("token", data.access);
+    navigate("/search");
+  } else {
+    alert("Invalid credentials");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-100 via-orange-50 to-green-100 font-poppins">

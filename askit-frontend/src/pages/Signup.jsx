@@ -7,34 +7,43 @@ const AskItSignup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+const AskItSignup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
-  if (password !== confirmPassword) {
-    alert("Passwords do not match");
-    return;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const response = await fetch("https://askit-6h2d.onrender.com/api/register/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert("Signup successful! Please login.");
-      navigate("/login");
-    } else {
-      // Show backend error (like duplicate email)
-      alert(data.detail || "Signup failed");
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
     }
-  } catch (error) {
-    console.error(error);
-    alert("Error connecting to server");
-  }
+
+    try {
+      const form = new FormData();
+      form.append("email", email);
+      form.append("password", password);
+
+      const response = await fetch("https://askit-6h2d.onrender.com/api/register/", {
+        method: "POST",
+        body: form, // no Content-Type header
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("✅ Signup successful! Please login.");
+        navigate("/login");
+      } else {
+        alert(data.detail || "❌ Signup failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("⚠️ Error connecting to server");
+    }
+  };
 };
 
 

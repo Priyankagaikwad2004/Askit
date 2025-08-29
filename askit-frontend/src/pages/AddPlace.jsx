@@ -33,29 +33,50 @@ const AddPlace = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetch("https://askit-6h2d.onrender.com/api/add-place/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+  e.preventDefault();
 
-    if (response.ok) {
-      alert("✅ Place added successfully!");
-      setFormData({
-        name: "",
-        location: "",
-        banner: "",
-        description: "",
-        history: "",
-        architecture: "",
-        fun_facts: [""],
-        visitor_tips: [""],
-      });
-    } else {
-      alert("❌ Failed to add place");
-    }
-  };
+  const form = new FormData();
+
+  // Add simple fields
+  form.append("name", formData.name);
+  form.append("location", formData.location);
+  form.append("banner", formData.banner);
+  form.append("description", formData.description);
+  form.append("history", formData.history);
+  form.append("architecture", formData.architecture);
+
+  // Add arrays (fun_facts & visitor_tips)
+  formData.fun_facts.forEach((fact, index) => {
+    form.append(`fun_facts[${index}]`, fact);
+  });
+
+  formData.visitor_tips.forEach((tip, index) => {
+    form.append(`visitor_tips[${index}]`, tip);
+  });
+
+  const response = await fetch("https://askit-6h2d.onrender.com/api/add-place/", {
+    method: "POST",
+    body: form, // no need for Content-Type, browser sets it automatically
+  });
+
+  if (response.ok) {
+    alert("✅ Place added successfully!");
+    setFormData({
+      name: "",
+      location: "",
+      banner: "",
+      description: "",
+      history: "",
+      architecture: "",
+      fun_facts: [""],
+      visitor_tips: [""],
+    });
+  } else {
+    const err = await response.text();
+    alert("❌ Failed to add place: " + err);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-amber-50 py-8 px-4">
