@@ -40,3 +40,18 @@ from .serializers import PlaceSerializer
 class PlaceCreateView(generics.CreateAPIView):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .ai_utils import get_itinerary
+
+@api_view(['POST'])
+def generate_itinerary(request):
+    city = request.data.get("city")
+    days = request.data.get("days")
+    budget = request.data.get("budget")
+    interests = request.data.get("interests")
+
+    itinerary = get_itinerary(city, days, budget, interests)
+    return Response({"itinerary": itinerary})
+
