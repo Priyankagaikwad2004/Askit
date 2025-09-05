@@ -41,11 +41,11 @@ const Header = () => {
             <span className="font-medium">Home</span>
           </Link>
           <Link 
-            to="/search" 
+            to="/itinerary" 
             className="flex items-center text-gray-700 hover:text-yellow-500 transition-all duration-300 hover:scale-105 py-2"
           >
             <FiCompass className="mr-1 transform hover:scale-110 transition-transform" /> 
-            <span className="font-medium">Destinations</span>
+            <span className="font-medium">Plan Your Trip</span>
           </Link>
           <Link 
             to="/add-place" 
