@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from decouple import config
 
-GEMINI_API_KEY = config("GEMINI_API_KEY")
+from decouple import config
+
+GEMINI_API_KEY = config("GEMINI_API_KEY", default="your-fallback-key-if-any")
+
 
 from pathlib import Path
 
