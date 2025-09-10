@@ -31,29 +31,41 @@ const Header = () => {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center group" onClick={closeMenu}>
-          <FiCompass className="text-yellow-500 text-2xl mr-2" />
-          <h1 className="text-xl font-bold text-gray-800">Explore India</h1>
+          <div className="relative">
+            <FiCompass className="text-yellow-500 text-2xl mr-2 transform group-hover:rotate-45 transition-transform duration-500" />
+            <div className="absolute inset-0 bg-yellow-100 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          </div>
+          <h1 className="text-xl font-bold text-gray-800 group-hover:text-yellow-600 transition-colors duration-300">
+            Explore India
+          </h1>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6">
           <button
             onClick={() => handleProtectedClick("/search")}
-            className="flex items-center text-gray-700 hover:text-yellow-500"
+            className="flex items-center text-gray-700 hover:text-yellow-500 transition-all duration-300 hover:scale-105 py-2"
           >
             <FiHome className="mr-1" />
             <span>Home</span>
           </button>
           <button
+            onClick={() => handleProtectedClick("/itinerary")}
+            className="flex items-center text-gray-700 hover:text-yellow-500 transition-all duration-300 hover:scale-105 py-2"
+          >
+            <FiCompass className="mr-1" />
+            <span>Plan Your Trip</span>
+          </button>
+          <button
             onClick={() => handleProtectedClick("/add-place")}
-            className="flex items-center text-gray-700 hover:text-yellow-500"
+            className="flex items-center text-gray-700 hover:text-yellow-500 transition-all duration-300 hover:scale-105 py-2"
           >
             <span className="mr-1">➕</span>
             <span>Add Place</span>
           </button>
           <button
             onClick={() => handleProtectedClick("/about")}
-            className="flex items-center text-gray-700 hover:text-yellow-500"
+            className="flex items-center text-gray-700 hover:text-yellow-500 transition-all duration-300 hover:scale-105 py-2"
           >
             <FiUser className="mr-1" />
             <span>About</span>
@@ -61,7 +73,7 @@ const Header = () => {
           {token && (
             <button
               onClick={handleLogout}
-              className="flex items-center text-gray-700 hover:text-red-500"
+              className="flex items-center text-gray-700 hover:text-red-500 transition-all duration-300 py-2"
             >
               <FiLogOut className="mr-1" />
               <span>Logout</span>
@@ -71,10 +83,14 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-700 p-2"
+          className="md:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded-full p-2 transition-all duration-300 hover:bg-yellow-50"
           onClick={toggleMenu}
         >
-          {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
+          {isMenuOpen ? (
+            <FiX className="w-6 h-6 transform transition-transform duration-300 rotate-90" />
+          ) : (
+            <FiMenu className="w-6 h-6 transform transition-transform duration-300" />
+          )}
         </button>
       </div>
 
@@ -82,17 +98,20 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white shadow-lg">
           <nav className="container mx-auto px-4 py-3 flex flex-col space-y-4">
-            <button onClick={() => handleProtectedClick("/search")} className="text-left">
+            <button onClick={() => handleProtectedClick("/search")} className="text-left py-2 border-b">
               Home
             </button>
-            <button onClick={() => handleProtectedClick("/add-place")} className="text-left">
+            <button onClick={() => handleProtectedClick("/itinerary")} className="text-left py-2 border-b">
+              Plan Your Trip
+            </button>
+            <button onClick={() => handleProtectedClick("/add-place")} className="text-left py-2 border-b">
               Add Place
             </button>
-            <button onClick={() => handleProtectedClick("/about")} className="text-left">
+            <button onClick={() => handleProtectedClick("/about")} className="text-left py-2 border-b">
               About
             </button>
             {token && (
-              <button onClick={handleLogout} className="text-left text-red-500">
+              <button onClick={handleLogout} className="text-left py-2 text-red-500">
                 Logout
               </button>
             )}
