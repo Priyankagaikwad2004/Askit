@@ -5,26 +5,35 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // New state for loading
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+    setError(""); // Clear previous errors
 
-    const response = await fetch("https://askit-6h2d.onrender.com/api/login/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch("https://askit-6h2d.onrender.com/api/login/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("access", data.access);
-      localStorage.setItem("refresh", data.refresh);
-      navigate("/search");
-    } else {
-      setError("Invalid email or password");
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("access", data.access);
+        localStorage.setItem("refresh", data.refresh);
+        navigate("/search");
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      setError("Network error. Please try again.");
+    } finally {
+      setIsLoading(false); // Stop loading regardless of outcome
     }
-};
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-100 via-orange-50 to-green-100 font-poppins">
@@ -62,6 +71,13 @@ const Login = () => {
           Continue your journey across India
         </p>
         
+        {/* Error message */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+            {error}
+          </div>
+        )}
+        
         {/* Form */}
         <form onSubmit={handleLogin} className="space-y-5">
           {/* Email Field */}
@@ -89,6 +105,7 @@ const Login = () => {
                 className="pl-10 w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition duration-200"
                 placeholder="your.email@example.com"
                 required
+                disabled={isLoading} // Disable during loading
               />
             </div>
           </div>
@@ -103,7 +120,7 @@ const Login = () => {
                 <svg 
                   className="h-5 w-5 text-gray-400" 
                   xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 20 20" 
+                  viewBox="0 极 20 20" 
                   fill="currentColor"
                 >
                   <path 
@@ -121,16 +138,32 @@ const Login = () => {
                 className="pl-10 w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition duration-200"
                 placeholder="••••••••"
                 required
+                disabled={isLoading} // Disable during loading
               />
             </div>
           </div>
           
-          {/* Login Button */}
+          {/* Login Button with loading state */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-4 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+            disabled={isLoading} // Disable button during loading
+            className={`w-full text-white py-3 px-4 rounded-lg font-semibold shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 ${
+              isLoading 
+                ? "bg-gray-400 cursor-not-allowed" 
+                : "bg-gradient-to-r from-orange-500 to-orange-600 hover:shadow-lg transform hover:-translate-y-0.5"
+            }`}
           >
-            Login
+            {isLoading ? (
+              <div className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 极 012 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Logging in...
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
         
@@ -165,7 +198,6 @@ const Login = () => {
       {/* Background decorative shapes */}
       <div className="fixed -bottom-24 -left-24 w-72 h-72 bg-orange-500 rounded-full opacity-10 hidden md:block"></div>
       <div className="fixed -top-24 -right-24 w-72 h-72 bg-green-600 rounded-full opacity-10 hidden md:block"></div>
-      
       
       {/* Add Poppins font from Google Fonts */}
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
