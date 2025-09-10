@@ -5,7 +5,8 @@ import SearchPlace from "./pages/SearchPlace";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import AddPlace from "./pages/AddPlace";
-import ItineraryPage from "./pages/SearchPage"; // 👈 import new page
+import ItineraryPage from "./pages/SearchPage"; 
+import PrivateRoute from "./components/PrivateRoute"; // 👈 import
 
 function App() {
   return (
@@ -16,11 +17,35 @@ function App() {
           {/* Default opens login page */}
           <Route path="/" element={<Navigate to="/login" />} />
 
+          {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/search" element={<SearchPlace />} /> {/* Dashboard */}
-          <Route path="/add-place" element={<AddPlace />} />
-          <Route path="/itinerary" element={<ItineraryPage />} /> {/* 👈 New Itinerary Page */}
+
+          {/* Protected routes */}
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <SearchPlace />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/add-place"
+            element={
+              <PrivateRoute>
+                <AddPlace />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/itinerary"
+            element={
+              <PrivateRoute>
+                <ItineraryPage />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </main>
     </Router>

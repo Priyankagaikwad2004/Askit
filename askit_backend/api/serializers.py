@@ -3,26 +3,9 @@ from .models import UserData
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from rest_framework import serializers
-from .models import UserData
-from django.contrib.auth.hashers import make_password
-
-class UserDataSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserData
-        fields = ['email', 'password']
-        extra_kwargs = {'password': {'write_only': True}}
-
-    def create(self, validated_data):
-        # Automatically hash the password when creating a new user
-        validated_data['password'] = make_password(validated_data['password'])
-        return super().create(validated_data)
-
-
-
 class CustomLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    password = serializers.CharField()
+    password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
         email = attrs.get("email")
@@ -36,11 +19,14 @@ class CustomLoginSerializer(serializers.Serializer):
         if not check_password(password, user.password):
             raise serializers.ValidationError("Invalid email or password")
 
-        refresh = RefreshToken()
-        refresh['email'] = user.email
-        refresh['id'] = user.id
+        # ✅ Generate proper tokens tied to the user
+        refresh = RefreshToken.for_user(user)
 
         return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+            "user": {
+                "id": user.id,
+                "email": user.email,
+            }
         }

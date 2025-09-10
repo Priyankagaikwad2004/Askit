@@ -1,28 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-const handleLogin = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const response = await fetch("https://askit-6h2d.onrender.com/api/login/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
+    const response = await fetch("https://askit-6h2d.onrender.com/api/login/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-  if (response.ok) {
-    const data = await response.json();
-    localStorage.setItem("token", data.access);
-    navigate("/search");
-  } else {
-    const errorData = await response.json();
-    alert(errorData.detail || "Invalid credentials");
-  }
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem("access", data.access);
+      localStorage.setItem("refresh", data.refresh);
+      navigate("/search");
+    } else {
+      setError("Invalid email or password");
+    }
 };
 
   return (
