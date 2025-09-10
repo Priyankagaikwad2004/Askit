@@ -7,7 +7,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const response = await fetch("https://askit-6h2d.onrender.com/api/login/", {
