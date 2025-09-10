@@ -36,8 +36,10 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "askit-6h2d.onrender.com",   # 👈 add your Render domain here
+    "askit-6h2d.onrender.com",
+    "https://askit-nine.vercel.app", # 👈 add your Render domain here
 ]
+
 
 import sys
 import os
