@@ -64,7 +64,7 @@ const Header = () => {
             <span>Add Place</span>
           </button>
           <button
-            onClick={() => handleProtectedClick("/about")}
+            onClick={() => handleProtectedClick("/search")}
             className="flex items-center text-gray-700 hover:text-yellow-500 transition-all duration-300 hover:scale-105 py-2"
           >
             <FiUser className="mr-1" />
