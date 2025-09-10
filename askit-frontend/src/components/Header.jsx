@@ -107,7 +107,7 @@ const Header = () => {
             <button onClick={() => handleProtectedClick("/add-place")} className="text-left py-2 border-b">
               Add Place
             </button>
-            <button onClick={() => handleProtectedClick("/about")} className="text-left py-2 border-b">
+            <button onClick={() => handleProtectedClick("/search")} className="text-left py-2 border-b">
               About
             </button>
             {token && (
